@@ -86,50 +86,21 @@ public OnClickDynamicPlayerTextDraw(playerid, PlayerText:textid)
 
             if(isCorrect)
             {
-                if(MiniGameData[playerid][MiniGameScore] < 3)
-                {
-                    MiniGameData[playerid][MiniGameScore]++;
-                    new matchedBoxIndex = matchedTargetTDIndex - 6;
+                MiniGameData[playerid][MiniGameScore]++;
+                new matchedBoxIndex = matchedTargetTDIndex - 6;
 
-                    format(string, sizeof(string), "%d", clickedNumber);
-                    PlayerTextDrawSetString(playerid, MiniGameData[playerid][MiniGameTD][matchedTargetTDIndex], string);
-                    PlayerTextDrawShow(playerid, MiniGameData[playerid][MiniGameTD][matchedTargetTDIndex]);
+                format(string, sizeof(string), "%d", clickedNumber);
+                PlayerTextDrawSetString(playerid, MiniGameData[playerid][MiniGameTD][matchedTargetTDIndex], string);
+                PlayerTextDrawShow(playerid, MiniGameData[playerid][MiniGameTD][matchedTargetTDIndex]);
 
-                    PlayerTextDrawColor(playerid, MiniGameData[playerid][MiniGameTD][matchedBoxIndex], 0x00FF00FF);
-                    PlayerTextDrawShow(playerid, MiniGameData[playerid][MiniGameTD][matchedBoxIndex]);
-                }
-                else
+                PlayerTextDrawColor(playerid, MiniGameData[playerid][MiniGameTD][matchedBoxIndex], 0x00FF00FF);
+                PlayerTextDrawShow(playerid, MiniGameData[playerid][MiniGameTD][matchedBoxIndex]);
+        
+                MiniGameData[playerid][MiniGameBarLoadingCount] -= 10;
+
+                if(MiniGameData[playerid][MiniGameScore] >= 3)
                 {
-                    MiniGameData[playerid][MiniGameScore] = 0;
                     MiniGameData[playerid][MiniGameBarLoadingCount] = 100;
-
-                    if(MiniGameData[playerid][MiniGameLoadingBarTimer] != -1)
-                    {
-                        KillTimer(MiniGameData[playerid][MiniGameLoadingBarTimer]);
-                        MiniGameData[playerid][MiniGameLoadingBarTimer] = -1;
-                    }
-
-                    MiniGameData[playerid][MiniGameIsAShow] = false;
-
-                    if(MiniGameData[playerid][MiniGameNumberSelectRandTimer] != -1)
-                    {
-                        KillTimer(MiniGameData[playerid][MiniGameNumberSelectRandTimer]);
-                        MiniGameData[playerid][MiniGameNumberSelectRandTimer] = -1;
-                    }
-
-                    for(new i = 0; i < 3; i++)
-                    {
-                        MiniGameData[playerid][MiniGameNumberTargetHidden][i] = 0;
-                        MiniGameData[playerid][MiniGameNumberHiddenIndex][i] = 0;
-                    }
-
-                    for(new i = 0; i < MAX_TEXTDRAW_MINIGAME; i++)
-                    {
-                        MiniGameData[playerid][MiniGameNumberTarget][i] = 0;
-                        MiniGameData[playerid][MiniGameNumberSelect][i] = 0;
-
-                        PlayerTextDrawHide(playerid, MiniGameData[playerid][MiniGameTD][i]);
-                    }
                 }
             }
             else
@@ -149,7 +120,7 @@ public OnClickDynamicPlayerTextDraw(playerid, PlayerText:textid)
     return 1;
 }
 
-stock ShowPlayerMiniGame(playerid, loading_time = 60)
+stock ShowPlayerMiniGame(playerid, loading_time = 120)
 {
     if(MiniGameData[playerid][MiniGameIsAShow])
         return 0;
@@ -1788,6 +1759,7 @@ public LoadingProgressBar(playerid)
         }
 
         MiniGameData[playerid][MiniGameScore] = 0;
+        CancelSelectTextDraw(playerid);
     }
     return 1;
 }
