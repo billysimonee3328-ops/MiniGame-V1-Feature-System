@@ -1,6 +1,6 @@
 # SA-MP / open.mp TextDraw Memory Grid Mini-Game
 
-Sistem minigame berbasis **TextDraw Interaktif** untuk SA-MP dan open.mp. Minigame ini menguji ingatan dan kecepatan pemain dalam menemukan angka target yang disembunyikan di dalam papan angka yang diacak secara otomatis.
+A dynamic, interactive **TextDraw-based mini-game** designed for SA-MP and open.mp servers. This mini-game challenges players' memory and reaction speed by hiding target numbers within a constantly shifting grid of numbers.
 
 ---
 
@@ -12,62 +12,62 @@ Sistem minigame berbasis **TextDraw Interaktif** untuk SA-MP dan open.mp. Miniga
 
 ---
 
-## 🎮 Cara Kerja Sistem (Mechanics)
+## 🎮 Mechanics & Game System
 
-1. **Inisialisasi Target:**
-   * Saat minigame dimulai (`ShowPlayerMiniGame`), sistem memilih **6 angka acak unik** sebagai target utama.
-   * Tiga dari 6 angka target tersebut dipilih secara acak menggunakan algoritma **Fisher-Yates Shuffle** untuk dijadikan **Hidden Target**.
+1. **Target Initialization:**
+   * Upon initialization via `ShowPlayerMiniGame`, the system generates **6 unique random numbers** assigned as primary targets.
+   * Out of these 6 numbers, 3 are randomly selected using the **Fisher-Yates Shuffle** algorithm to become **Hidden Targets**.
 
-2. **Mekanisme Transisi & Timer:**
-   * Pada 3 detik pertama, seluruh angka target diperlihatkan kepada pemain agar dapat dihafalkan.
-   * Setelah 3 detik (`DelayHiddenNumberMiniGame`), 3 angka target pilihan akan disembunyikan dan diubah tampilannya menjadi `"??"` dengan warna indikator merah.
-   * Tombol interaktif (grid) baru diaktifkan setelah angka disembunyikan.
+2. **Transition & Delay Mechanism:**
+   * During the initial 3 seconds, all target numbers are displayed to allow players time to memorize them.
+   * After 3 seconds (`DelayHiddenNumberMiniGame`), the 3 selected target numbers are masked with `"??"` and their background boxes turn red (`0xFF0000FF`).
+   * Interactive grid buttons are enabled only after the numbers are hidden.
 
-3. **Papan Pilihan Dinamis (Dynamic Grid Shuffle):**
-   * Papan pilihan berisi grid angka (ID 73–132) yang **diacak nilainya setiap 2 detik** via timer `MiniGameRandomSelect`.
-   * Sistem secara otomatis menyuntikkan (*inject*) 3 angka target yang disembunyikan ke dalam slot acak papan grid, menjamin bahwa **selalu ada opsi jawaban yang benar** di setiap siklus pengacakan.
+3. **Dynamic Grid Shuffling:**
+   * The selection grid (IDs 73–132) constantly **re-shuffles its values every 2 seconds** via the `MiniGameRandomSelect` timer.
+   * The system automatically injects the 3 hidden target numbers into random slots within the grid during each shuffle, ensuring that **a correct option is always present**.
 
-4. **Deteksi Klik & Penalti:**
-   * **Jawaban Benar:** Jika pemain berhasil mengklik angka target yang tersembunyi, teks asli akan kembali dimunculkan dan warna kotak target berubah menjadi **Hijau** (`0x00FF00FF`).
-   * **Jawaban Salah:** Mengklik angka yang salah memicu suara *error* (Sound ID `5206`), memberikan efek kilat merah pada *progress bar*, serta memberi penalti berupa **pemotongan waktu** (*progress bar* langsung bertambah `5%`).
+4. **Click Detection & Penalties:**
+   * **Correct Selection:** Clicking a hidden target reveals its true value and changes the target indicator box color to **Green** (`0x00FF00FF`).
+   * **Incorrect Selection:** Clicking a wrong number triggers an error sound (Sound ID `5206`), briefly flashes the loading bar red, and applies a **time penalty** (advancing the loading bar by `5%`).
 
-5. **Waktu & Auto-Cleanup:**
-   * *Progress bar* akan berjalan hingga batas waktu selesai.
-   * Ketika waktu habis atau pemain terputus (*disconnect*), seluruh timer (`LoadingProgressBar`, `MiniGameNumberSelectRandTimer`) otomatis dimatikan (*KillTimer*) dan variabel data dibersihkan untuk mencegah *memory leak*.
+5. **Time Management & Cleanup:**
+   * A progress bar tracks the remaining time.
+   * If time expires or the player disconnects, active timers (`LoadingProgressBar`, `MiniGameNumberSelectRandTimer`) are terminated immediately, and array variables are reset to prevent memory leaks.
 
 ---
 
-## 🛠️ Dependencies (Library yang Dibutuhkan)
+## 🛠️ Dependencies
 
 * [a_samp](https://github.com/pawn-lang/YSI-Includes) (Standard SA-MP Library)
-* [Pawn.CMD](https://github.com/katembor/Pawn.CMD) (Fast Command Processor)
+* [Pawn.CMD](https://github.com/katembor/Pawn.CMD) (Command Processor)
 * [textdraw-streamer](https://github.com/SreeT/textdraw-streamer) (Player TextDraw Management)
 
 ---
 
-## 📌 Indeks TextDraw & Struktur Data
+## 📌 TextDraw Index Mapping
 
-| Rentang Indeks TD | Fungsi / Penggunaan |
+| Index Range | Function / Component |
 | :--- | :--- |
-| **`1` - `60`** | Layer Tombol Transparan (*Selectable*) |
-| **`61` - `66`** | Box Indikator Warna Target Merah/Hijau (`Target Index - 6`) |
-| **`67` - `72`** | TextDraw Angka Target Utama |
-| **`73` - `132`** | Grid Papan Angka Pilihan (`Button Index + 72`) |
-| **`134`** | TextDraw Progress Bar Loading |
+| **`1` - `60`** | Interactive Transparent Button Layer (*Selectable*) |
+| **`61` - `66`** | Target Indicator Boxes (`Target Index - 6`) |
+| **`67` - `72`** | Primary Target Number TextDraws |
+| **`73` - `132`** | Selection Grid Number Displays (`Button Index + 72`) |
+| **`134`** | Loading Progress Bar |
 
 ---
 
-## 🚀 Cara Penggunaan (Usage)
+## 🚀 Usage
 
-1. Pasang *include* yang dibutuhkan ke dalam projek server kamu.
-2. Salin kode sistem minigame ke dalam *gamemode* atau *filterscript*.
-3. Panggil fungsi berikut untuk menampilkan minigame ke pemain:
+1. Ensure all required includes are present in your server's include folder.
+2. Include the source code within your gamemode or filterscript.
+3. Call the function to display the mini-game to a player:
 
 ```pawn
-// Menampilkan minigame dengan durasi default (60 detik)
+// Displays the mini-game with a default 60-second limit
 ShowPlayerMiniGame(playerid, 60);
 
-// Atau panggil lewat command player
+// Or execute via the built-in command
 CMD:minigame(playerid, params[])
 {
     ShowPlayerMiniGame(playerid);
