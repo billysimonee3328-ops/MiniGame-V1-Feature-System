@@ -1,5 +1,8 @@
 # SA-MP / open.mp TextDraw Memory Grid Mini-Game
 
+<img width="1366" height="768" alt="Screenshot (593)" src="https://github.com/user-attachments/assets/579643f8-5f78-441b-a46c-b0cadbc8832e" />
+
+
 <img width="1366" height="768" alt="Screenshot (594)" src="https://github.com/user-attachments/assets/1dcd09a0-8d56-4170-9e38-91b84cbc8e08" />
 
 A dynamic, interactive **TextDraw-based mini-game** designed for SA-MP and open.mp servers. This mini-game challenges players' memory and reaction speed by hiding target numbers within a constantly shifting grid of numbers.
