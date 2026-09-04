@@ -45,7 +45,7 @@ A dynamic, interactive **TextDraw-based mini-game** designed for SA-MP and open.
 * [a_samp](https://github.com/pawn-lang/YSI-Includes) (Standard SA-MP Library)
 * [Pawn.CMD](https://github.com/katembor/Pawn.CMD) (Command Processor)
 * [textdraw-streamer](https://github.com/SreeT/textdraw-streamer) (Player TextDraw Management)
-* [OR](https://www.mediafire.com/file/9lw4g7f2418zmhg/plugins.rar/file) (All)
+* [All Plguin](https://www.mediafire.com/file/9lw4g7f2418zmhg/plugins.rar/file) (Download)
 ---
 
 ## TextDraw Index Mapping
