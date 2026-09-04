@@ -40,6 +40,14 @@ A dynamic, interactive **TextDraw-based mini-game** designed for SA-MP and open.
    * A progress bar tracks the remaining time.
    * If time expires or the player disconnects, active timers (`LoadingProgressBar`, `MiniGameNumberSelectRandTimer`) are terminated immediately, and array variables are reset to prevent memory leaks.
 
+* 🧩 **Dynamic Grid & TextDraw System:** Fully responsive and clean UI constructed using custom TextDraws.
+* 🔀 **Randomized Target Shuffling:** Automatically generates unique target numbers and randomized positions for each game session.
+* ⏱️ **Time Penalty & Bonus Mechanics:**
+  * **Correct Guess (`-= 10`):** Rewards players by restoring/extending the loading progress bar.
+  * **Wrong Guess (`+= 5`):** Applies a penalty, draining the progress bar faster.
+* 🔊 **Audio & Visual Feedback:** Dynamic color state changes (green for correct, red for wrong) with native game sound effects.
+* 🛠️ **Optimized Pawn Code:** Memory-safe execution with proper stack handling and minimal timer overhead.
+  
 ---
 
 ## Dependencies
