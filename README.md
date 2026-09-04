@@ -1,10 +1,13 @@
 # SA-MP / open.mp TextDraw Memory Grid Mini-Game
 
+![Uploading Screenshot (594).png…]()
+
+
 A dynamic, interactive **TextDraw-based mini-game** designed for SA-MP and open.mp servers. This mini-game challenges players' memory and reaction speed by hiding target numbers within a constantly shifting grid of numbers.
 
 ---
 
-## 👨‍💻 Author & Credits
+## Author & Credits
 
 * **Developer:** Billy Simonee (ANX)
 * **Language:** Pawn
@@ -12,7 +15,7 @@ A dynamic, interactive **TextDraw-based mini-game** designed for SA-MP and open.
 
 ---
 
-## 🎮 Mechanics & Game System
+## Mechanics & Game System
 
 1. **Target Initialization:**
    * Upon initialization via `ShowPlayerMiniGame`, the system generates **6 unique random numbers** assigned as primary targets.
@@ -37,15 +40,15 @@ A dynamic, interactive **TextDraw-based mini-game** designed for SA-MP and open.
 
 ---
 
-## 🛠️ Dependencies
+## Dependencies
 
 * [a_samp](https://github.com/pawn-lang/YSI-Includes) (Standard SA-MP Library)
 * [Pawn.CMD](https://github.com/katembor/Pawn.CMD) (Command Processor)
 * [textdraw-streamer](https://github.com/SreeT/textdraw-streamer) (Player TextDraw Management)
-
+* [OR](https://www.mediafire.com/file/9lw4g7f2418zmhg/plugins.rar/file) (All)
 ---
 
-## 📌 TextDraw Index Mapping
+## TextDraw Index Mapping
 
 | Index Range | Function / Component |
 | :--- | :--- |
@@ -57,7 +60,7 @@ A dynamic, interactive **TextDraw-based mini-game** designed for SA-MP and open.
 
 ---
 
-## 🚀 Usage
+## Usage
 
 1. Ensure all required includes are present in your server's include folder.
 2. Include the source code within your gamemode or filterscript.
